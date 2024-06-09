@@ -3,4 +3,10 @@ project(Icicle)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Icicle main.cpp RCL/Header.cpp RCL/DirectoryOffsetTable.cpp RCL/RclFile.cpp RCL/Directory.cpp RCL/ArtFile.cpp)
+add_executable(Icicle src/main.cpp
+                      src/RCL/Header.cpp
+                      src/RCL/DirectoryOffsetTable.cpp
+                      src/RCL/RclFile.cpp
+                      src/RCL/Directory.cpp
+                      src/RCL/ArtFile.cpp
+                      src/RCL/ArtFileEntry.cpp)

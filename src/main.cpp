@@ -11,7 +11,7 @@ uint32_t DumpArtFiles(std::string const &output_dir, RCL::RclFile &rcl_file) {
     for (uint32_t directory_id{0}; directory_id < rcl_file.directories.size(); ++directory_id) {
         RCL::Directory &file_table{rcl_file.directories[directory_id]};
         for (uint32_t file_id{0}; file_id < file_table.num_files; ++file_id) {
-            RCL::ArtFile &art_file{file_table.files[file_id]};
+            RCL::ArtFile &art_file{file_table.art_files[file_id]};
             if (art_file.size == 0)
                 continue;
             std::string art_file_name{std::to_string(directory_id) + "_" + std::to_string(file_id) + ".png"};
