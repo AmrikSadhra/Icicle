@@ -1,24 +1,28 @@
 #pragma once
 
 #include "Common/IRawData.h"
-#include "ArchiveTable.h"
-#include "FileTable.h"
+#include "Directory.h"
+#include "DirectoryOffsetTable.h"
 #include "Header.h"
 
-namespace RCL
-{
-	class RclFile : private IRawData
-	{
-	public:
-		RclFile() = default;
-		explicit RclFile(std::ifstream& ifstream);
-		void _SerializeOut(std::ofstream& ofstream) override;
+namespace RCL {
+class RclFile : private IRawData {
+  public:
+    RclFile() = default;
+    explicit RclFile(std::ifstream &ifstream);
+    void _SerializeOut(std::ofstream &ofstream) override;
 
-		Header header;
-		std::vector<ArchiveTable> archive_tables;
-		std::vector<FileTable> file_tables;
+    struct EndOfDirOffsetTableMarker {
+        uint32_t num_padding_bytes;
+        std::vector<uint8_t> padding;
+    };
 
-	private:
-		bool _SerializeIn(std::ifstream& ifstream) override;
-	};
-}// namespace RCL
+    Header header;
+    std::vector<DirectoryOffsetTable> directory_offset_tables;
+    EndOfDirOffsetTableMarker end_of_dot_marker;
+    std::vector<Directory> directories;
+
+  private:
+    bool _SerializeIn(std::ifstream &ifstream) override;
+};
+} // namespace RCL

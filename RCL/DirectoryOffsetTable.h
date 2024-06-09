@@ -3,15 +3,14 @@
 #include "Common/IRawData.h"
 
 namespace RCL {
-class File : private IRawData {
+class DirectoryOffsetTable : private IRawData {
   public:
-    File() = default;
-    explicit File(std::ifstream &ifstream, uint32_t _size);
+    DirectoryOffsetTable() = default;
+    explicit DirectoryOffsetTable(std::ifstream &ifstream);
     void _SerializeOut(std::ofstream &ofstream) override;
 
-    // Derived
-    uint32_t size;
-    std::vector<char> raw_data;
+    uint32_t magic_0128;
+    uint32_t directory_offsets[73];
 
   private:
     bool _SerializeIn(std::ifstream &ifstream) override;
