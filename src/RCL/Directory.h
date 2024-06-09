@@ -22,5 +22,8 @@ class Directory : private IRawData {
 
   private:
     bool _SerializeIn(std::ifstream &ifstream) override;
+    bool _CheckForPNGHeader(std::ifstream &ifstream);
+
+    uint32_t const PNG_HEADER = 0x474E5089;
 };
 } // namespace RCL

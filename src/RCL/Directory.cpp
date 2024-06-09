@@ -10,22 +10,37 @@ void Directory::_SerializeOut(std::ofstream &ofstream) {
     ASSERT(false, "Directory output serialization is not currently implemented");
 }
 
+bool Directory::_CheckForPNGHeader(std::ifstream &ifstream) {
+    uint32_t check {};
+    SAFE_READ(ifstream, &check, sizeof(check));
+    ifstream.seekg(-sizeof(check), std::ios::cur);
+    return check == PNG_HEADER;
+}
+
 bool Directory::_SerializeIn(std::ifstream &ifstream) {
     if(directory_hierarchy) {
         SAFE_READ(ifstream, &size, sizeof(size));
         size = __builtin_bswap32(size);
         num_files = (size - 4) / 16; // ArtFileEntry is 4 * uint32's
     } else {
-        // TODO: This is variable. 30 for SPLASH_I. 45 for SPLASH_N. Not encoded in the file, hence we need to be greedy
-        // and read entries until we see a PNG header, then backtrack..
-        num_files = 30;
+        num_files = 1;
     }
-
-    std::cout << "  Contains: " << num_files << " files" << std::endl;
 
     for (uint32_t file_id{0}; file_id < num_files; ++file_id) {
         art_file_entries.emplace_back(ifstream);
+
+        // If a flat file hierarchy, there is no encoded file count, hence we greedily look for a PNG header
+        // to mark the end of the art file entry section
+        bool const hit_png {!directory_hierarchy && _CheckForPNGHeader(ifstream)};
+        if(hit_png) {
+            num_files = file_id + 1;
+            break;
+        } else {
+            ++num_files;
+        }
     }
+
+    std::cout << "  Contains: " << num_files << " files" << std::endl;
 
     for (auto &file_entry : art_file_entries) {
         ifstream.seekg(file_entry.offset, std::ios::beg);
