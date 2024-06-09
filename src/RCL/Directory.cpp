@@ -2,7 +2,7 @@
 
 using namespace RCL;
 
-Directory::Directory(std::ifstream &ifstream) {
+Directory::Directory(std::ifstream &ifstream, bool _directory_hierarchy) : directory_hierarchy(_directory_hierarchy) {
     ASSERT(this->_SerializeIn(ifstream), "Failed to serialize Directory from file stream");
 };
 
@@ -11,10 +11,16 @@ void Directory::_SerializeOut(std::ofstream &ofstream) {
 }
 
 bool Directory::_SerializeIn(std::ifstream &ifstream) {
-    SAFE_READ(ifstream, &size, sizeof(size));
-    size = __builtin_bswap32(size);
+    if(directory_hierarchy) {
+        SAFE_READ(ifstream, &size, sizeof(size));
+        size = __builtin_bswap32(size);
+        num_files = (size - 4) / 16; // ArtFileEntry is 4 * uint32's
+    } else {
+        // TODO: This is variable. 30 for SPLASH_I. 45 for SPLASH_N. Not encoded in the file, hence we need to be greedy
+        // and read entries until we see a PNG header, then backtrack..
+        num_files = 30;
+    }
 
-    num_files = (size - 4) / 16; // ArtFileEntry is 4 * uint32's
     std::cout << "  Contains: " << num_files << " files" << std::endl;
 
     for (uint32_t file_id{0}; file_id < num_files; ++file_id) {

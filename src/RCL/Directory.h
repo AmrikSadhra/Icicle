@@ -8,7 +8,7 @@ namespace RCL {
 class Directory : private IRawData {
   public:
     Directory() = default;
-    explicit Directory(std::ifstream &ifstream);
+    explicit Directory(std::ifstream &ifstream, bool _directory_hierarchy);
     void _SerializeOut(std::ofstream &ofstream) override;
 
     // Raw
@@ -17,6 +17,7 @@ class Directory : private IRawData {
     std::vector<ArtFile> art_files;
 
     // Derived
+    bool directory_hierarchy;
     uint32_t num_files{};
 
   private:

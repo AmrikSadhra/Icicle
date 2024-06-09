@@ -10,7 +10,10 @@ struct Header {
     char model[32];
     char compile_date[48];
     char oem[32];
-    u64 unknown;
+    u16 check1;
+    u16 packing_type;
+    u32 check2;
+    u32 fs;
     u32 file_size;
     u32 unknown2;
     padding[128];
