@@ -12,14 +12,8 @@ class RclFile : private IRawData {
     explicit RclFile(std::ifstream &ifstream);
     void _SerializeOut(std::ofstream &ofstream) override;
 
-    struct EndOfDirOffsetTableMarker {
-        uint32_t num_padding_bytes;
-        std::vector<uint8_t> padding;
-    };
-
     Header header;
     std::vector<DirectoryOffsetTable> directory_offset_tables;
-    EndOfDirOffsetTableMarker end_of_dot_marker;
     std::vector<Directory> directories;
 
   private:

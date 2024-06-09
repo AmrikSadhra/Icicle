@@ -19,34 +19,31 @@ struct Header {
     u32 unknown4;
 };
 
-
 struct DirectoryOffsetTable {
     u32 magic_0128;
     u32 offset[73];
 };
 
-
-struct FileEntry {
+struct ArtFileEntry {
     u32 offset;
     u32 offset_chk;
     u32 num_bytes;
     u32 num_bytes_chk;
 };
 
-struct FileTable {
+struct Directory {
     u32 size;
-    FileEntry file_entries[(size-4)/16];
+    ArtFileEntry art_file_entries[(size-4)/16];
 };
 
-struct File {
+struct ArtFile {
     header_t header;
-    Chunks chunks [[name("Chunks")]];
+    Chunks chunks;
 };
-
 
 Header file_header @$;
 DirectoryOffsetTable dir_offset_tables[4] @$;
-FileTable file_table[292] @$;
-File file[5129] @$;
+Directory directories[292] @$;
+ArtFile art_files[100] @$;
 
 //File file1 @ file_table0.file_entries[1].offset;

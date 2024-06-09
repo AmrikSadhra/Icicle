@@ -45,7 +45,8 @@ int main(int argc, char **argv) {
 
     RCL::RclFile rcl_file(clarion_rcl);
     uint32_t const num_dumped_files{DumpArtFiles(output_dir, rcl_file)};
-    std::cout << "Successfully dumped " << num_dumped_files << " files from " << rcl_path << std::endl;
+    std::cout << "Successfully dumped " << num_dumped_files << " files from " << rcl_path << " to " << output_dir
+              << std::endl;
 
     return 0;
 }

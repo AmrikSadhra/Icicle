@@ -26,10 +26,5 @@ bool RclFile::_SerializeIn(std::ifstream &ifstream) {
         }
     }
 
-    /*SAFE_READ(ifstream, &end_of_dot_marker.num_padding_bytes, sizeof(end_of_dot_marker.num_padding_bytes));
-    end_of_dot_marker.num_padding_bytes = __builtin_bswap32(end_of_dot_marker.num_padding_bytes);
-    end_of_dot_marker.padding.resize(end_of_dot_marker.num_padding_bytes);
-    SAFE_READ(ifstream, end_of_dot_marker.padding.data(), end_of_dot_marker.padding.size());*/
-
     return true;
 }
