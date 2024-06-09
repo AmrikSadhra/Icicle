@@ -3,10 +3,10 @@
 #include "Common/IRawData.h"
 
 namespace RCL {
-class File : private IRawData {
+class ArtFile : private IRawData {
   public:
-    File() = default;
-    explicit File(std::ifstream &ifstream, uint32_t _size);
+    ArtFile() = default;
+    explicit ArtFile(std::ifstream &ifstream, uint32_t _size);
     void _SerializeOut(std::ofstream &ofstream) override;
 
     // Derived

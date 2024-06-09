@@ -1,7 +1,7 @@
 #pragma once
 
+#include "ArtFile.h"
 #include "Common/IRawData.h"
-#include "File.h"
 
 namespace RCL {
 class Directory : private IRawData {
@@ -24,7 +24,7 @@ class Directory : private IRawData {
     // Raw
     uint32_t size{};
     std::vector<FileEntry> file_entries;
-    std::vector<File> files;
+    std::vector<ArtFile> files;
 
     // Derived
     uint32_t num_files{};
