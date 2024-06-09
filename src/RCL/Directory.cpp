@@ -14,7 +14,7 @@ bool Directory::_SerializeIn(std::ifstream &ifstream) {
     SAFE_READ(ifstream, &size, sizeof(size));
     size = __builtin_bswap32(size);
 
-    num_files = (size - 4)/16; // ArtFileEntry is 4 * uint32's
+    num_files = (size - 4) / 16; // ArtFileEntry is 4 * uint32's
     std::cout << "  Contains: " << num_files << " files" << std::endl;
 
     for (uint32_t file_id{0}; file_id < num_files; ++file_id) {

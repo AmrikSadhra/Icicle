@@ -30,8 +30,8 @@ int main(int argc, char **argv) {
         std::cerr << "Icicle requires 2 arguments: [path_to_rcl_file] [output_directory]" << std::endl;
     }
 
-    const std::string &rcl_path {args[0]};
-    const std::string &output_dir {args[1]};
+    const std::string &rcl_path{args[0]};
+    const std::string &output_dir{args[1]};
 
     std::ifstream clarion_rcl(rcl_path, std::ios::in | std::ios::binary);
     if (!clarion_rcl.is_open()) {

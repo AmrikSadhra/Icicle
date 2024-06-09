@@ -5,11 +5,14 @@
 #include <string>
 #include <vector>
 
-#include "../../../Utils.h"
+#include "../../Utils.h"
 
-class IRawData
-{
-protected:
-	virtual bool _SerializeIn(std::ifstream& ifstream) = 0;
-	virtual void _SerializeOut(std::ofstream& ofstream) = 0;
+#define SAFE_READ(file, structure, size)                                                                               \
+    if ((file).read((char *)(structure), (size)).gcount() != (size))                                                   \
+    return false
+
+class IRawData {
+  protected:
+    virtual bool _SerializeIn(std::ifstream &ifstream) = 0;
+    virtual void _SerializeOut(std::ofstream &ofstream) = 0;
 };
