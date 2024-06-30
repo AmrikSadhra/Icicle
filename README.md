@@ -1,8 +1,8 @@
-</table><img src="resources/logo.png" align="right" height="200" width="200"/>
+<img src="resources/logo.png" align="right" height="200" width="200"/>
 
 # Icicle
 
-Read and write Clarion RCL skin packages, used in Xanavi media center firmware. 
+Read and write Clarion rcl skin packages, used in Xanavi media center firmware. 
 These units are used in vehicles such as the Nissan GTR, 370z, Infiniti G37, along with many more.
 
 ## Planned Features
@@ -11,7 +11,7 @@ These units are used in vehicles such as the Nissan GTR, 370z, Infiniti G37, alo
 
 ## Usage
 
-Currently only unpacking is supported, hence we only take an output directory.
+Currently, only unpacking is supported - hence we only take an output directory.
 
 ```bash
 ./icicle [path_to_rcl_file] [output_directory]

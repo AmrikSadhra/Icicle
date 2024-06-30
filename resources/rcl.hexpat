@@ -6,12 +6,12 @@ import png;
 #pragma endian big
 #pragma pattern_limit 750000
 
-struct Header {
+struct header {
     char model[32];
     char compile_date[48];
     char oem[32];
     u16 check1;
-    u16 packing_type;
+    u16 packing_type_t;
     u32 check2;
     u32 file_size;
     u32 unknown2;
@@ -21,31 +21,31 @@ struct Header {
     u32 unknown4;
 };
 
-struct DirectoryOffsetTable {
+struct directory_offset_table {
     u32 magic_0128;
     u32 offset[73];
 };
 
-struct ArtFileEntry {
+struct art_file_entry {
     u32 offset;
-    u32 offset_chk;
+    u32 offset_2;
     u32 num_bytes;
-    u32 num_bytes_chk;
+    u32 num_bytes_2;
 };
 
-struct Directory {
+struct directory {
     u32 size;
-    ArtFileEntry art_file_entries[(size-4)/16];
+    art_file_entry art_file_entries[(size-4)/16];
 };
 
-struct ArtFile {
+struct art_file {
     header_t header;
     Chunks chunks;
 };
 
-Header file_header @$;
-DirectoryOffsetTable dir_offset_tables[4] @$;
-Directory directories[292] @$;
-ArtFile art_files[100] @$;
+header file_header @$;
+directory_offset_table dir_offset_tables[4] @$;
+directory directories[292] @$;
+art_file art_files[100] @$;
 
 //File file1 @ file_table0.file_entries[1].offset;
