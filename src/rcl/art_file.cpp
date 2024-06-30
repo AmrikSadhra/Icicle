@@ -7,7 +7,7 @@ art_file::art_file(art_file_entry &_parent, uint32_t const _size, bool const _is
 
 bool art_file::serialise_in(std::ifstream &ifstream) {
     raw_data.resize(size);
-    icicle_check(ifstream.read((char*)raw_data.data(), size).gcount() == size);
+    icicle_check(ifstream.read((char *)raw_data.data(), size).gcount() == size);
 
     return true;
 }

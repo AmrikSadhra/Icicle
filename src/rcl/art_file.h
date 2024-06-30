@@ -1,7 +1,7 @@
 #pragma once
 
-#include "common/raw_data_interface.h"
 #include "art_file_entry.h"
+#include "common/raw_data_interface.h"
 #include <vector>
 
 namespace rcl {
@@ -11,10 +11,12 @@ class art_file : private raw_data_interface {
     bool serialise_in(std::ifstream &ifstream) override;
     bool serialise_out(std::ofstream &ofstream) override;
 
+    // Raw
+    std::vector<char> raw_data;
+
     // Derived
     art_file_entry &parent;
     uint32_t size{};
-    std::vector<char> raw_data;
     bool is_file_b{};
 };
 } // namespace rcl

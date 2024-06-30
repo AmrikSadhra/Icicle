@@ -10,6 +10,7 @@ class directory : private raw_data_interface {
     explicit directory(bool _directory_hierarchy);
     bool serialise_in(std::ifstream &ifstream) override;
     bool serialise_out(std::ofstream &ofstream) override;
+    [[nodiscard]] std::string to_string() const;
 
     // Raw
     uint32_t size{};

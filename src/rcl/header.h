@@ -15,9 +15,9 @@ class header : private raw_data_interface {
     explicit header() = default;
     bool serialise_in(std::ifstream &ifstream) override;
     bool serialise_out(std::ofstream &ofstream) override;
-    [[nodiscard]] std::string to_string() const;
     [[nodiscard]] static packing_type get_packing_type(uint32_t _type);
     [[nodiscard]] static std::string packing_type_to_string(packing_type _type);
+    [[nodiscard]] std::string to_string() const;
 
     // Raw
     char developer[32]{};

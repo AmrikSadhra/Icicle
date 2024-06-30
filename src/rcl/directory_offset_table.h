@@ -10,6 +10,7 @@ class directory_offset_table : private raw_data_interface {
     bool serialise_in(std::ifstream &ifstream) override;
     bool serialise_out(std::ofstream &ofstream) override;
 
+    // Raw
     uint32_t magic_0128{};
     std::array<uint32_t, 73> directory_offsets{};
 
